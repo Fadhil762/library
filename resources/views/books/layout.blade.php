@@ -9,6 +9,12 @@
 </head>
 <body>
     <div class="container">
+            @auth
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="btn btn-danger">Logout</button>
+                </form>
+            @endauth
         @yield('content')
     </div>
 </body>
