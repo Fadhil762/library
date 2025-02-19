@@ -1,14 +1,17 @@
 @extends('books.layout')
 
 @section('content')
+    @auth
     <div class="row">
-        <div class="col-lg-12 mx-5 my-5">
+        <div class="col-lg-12 my-3">
             <div class="d-flex justify-content-start">
-                <p>Book Management System</p>
+                <h2>Book Management System</hj2>
             </div>
-            <div class="d-flex justify-content-end">
-                <a class="btn btn-primary mx-3 my-3" href={{route('books.create')}}>Add new book</a>
-            </div>
+            @if(Auth::user()->role === 'admin')
+                <div class="d-flex justify-content-end">
+                    <a class="btn btn-primary mx-3 my-3" href={{route('books.create')}}>Add new book</a>
+                </div>
+            @endif
         </div>
     </div>
     @if ($message = Session::get('success'))
@@ -37,13 +40,16 @@
             <td>
                 <form action="{{route('books.destroy', $book->id)}}" method="post">
                     <a href="{{route('books.show',$book->id)}}" class="btn btn-info">Show</a>
+                    @if(Auth::user()->role === 'admin')
                     <a href="{{route('books.edit',$book->id)}}" class="btn btn-primary">Edit</a>
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger">Delete</button>
+                    @endif
                 </form>
             </td>
         </tr>
         @endforeach
     </table>
+    @endauth
 @endsection

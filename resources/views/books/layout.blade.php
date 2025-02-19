@@ -10,10 +10,15 @@
 <body>
     <div class="container">
             @auth
-                <form action="{{ route('logout') }}" method="POST">
-                    @csrf
-                    <button type="submit" class="btn btn-danger">Logout</button>
-                </form>
+                <div class="d-flex justify-content-between align-items-center py-3">
+                    <div>
+                        <span class="me-3">Welcome, {{Auth::user()->name}}</span>
+                        <form action="{{route('logout')}}" method="post" style="display:inline-block">
+                            @csrf
+                            <button type="submit" class="btn btn-danger">Logout</button>
+                        </form>
+                    </div>
+                </div>
             @endauth
         @yield('content')
     </div>
